@@ -1,0 +1,217 @@
+:root {
+  --bg: #11100f;
+  --fg: #e6e1d8;
+  --muted: rgba(230, 225, 216, 0.65);
+  --border: rgba(230, 225, 216, 0.18);
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.appContainer {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  padding: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.frame {
+  flex: 1;
+  min-height: 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  grid-template-areas:
+    "hud      map"
+    "input    objects"
+    "readout  objects";
+  gap: 12px;
+  border: 1px solid var(--border);
+  padding: 12px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Grid areas */
+.input        { grid-area: input; }
+.hud          { grid-area: hud; min-height: 0; }
+.textReadout  { grid-area: readout; min-height: 0; }
+.asciiMap     { grid-area: map; min-height: 0; }
+.objects      { grid-area: objects; min-height: 0; }
+
+/* Panels */
+.panel {
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.panelTitle {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.panelBody {
+  flex: 1;
+  padding: 10px;
+  overflow: auto;
+  min-height: 0;
+}
+
+/* HUD: two columns inside */
+.hud {
+  height: 100%;
+}
+.hudGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 10px;
+}
+.hud .panelTitle { display: none; }
+
+.hudLine {
+  color: var(--muted);
+  margin: 0 0 8px 0;
+}
+
+.input .panel { 
+  height: auto;
+  justify-content: center;
+}
+
+.terminalInput {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+}
+
+.inputPrompt {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.inputField {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--fg);
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+}
+
+.inputField::placeholder {
+  color: var(--muted);
+  opacity: 0.5;
+}
+
+.textReadout .panel { 
+  height: 100%;
+}
+
+.objects .panel { 
+  height: 100%;
+}
+
+.asciiMap { 
+  grid-area: map; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.asciiMap .panel { 
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+  justify-content: center;
+}
+
+/* Mobile: stack */
+@media (max-width: 800px) {
+  html, body {
+    height: auto;
+    overflow: auto;
+  }
+
+  #root {
+    padding: 10px;
+    height: auto;
+    min-height: 100dvh;
+    overflow: auto;
+  }
+  
+  .appContainer {
+    gap: 8px;
+  }
+  
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "hud"
+      "map"
+      "input"
+      "readout"
+      "objects";
+    gap: 8px;
+  }
+
+  .frame {
+    flex: 0 0 auto;
+    min-height: auto;
+  }
+  
+  .title {
+    font-size: 1.2rem;
+    padding: 8px;
+  }
+
+  .textReadout .panel {
+    min-height: 240px;
+  }
+
+  .objects .panel {
+    min-height: 120px;
+  }
+}
