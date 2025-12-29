@@ -1,4 +1,6 @@
 import "./App.css";
+import { AsciiMapMock } from './AsciiMapMock';
+import mapSeed from "./maps/map.seed.json";
 
 function Panel({ title, children }: { title: string; children?: React.ReactNode }) {
   return (
@@ -38,8 +40,11 @@ export default function App() {
           <section className="panel hud">
             <div className="hudGrid">
               <div className="hudLeft">
-                <div className="hudLine">Name</div>
-                <div className="hudLine">HP / AP</div>
+                <div className="hudLine">Model 3R7Zy</div>
+                <div className="hudLine">Healthy / █ █ █ █ █ ■ ≡ ≡ ≡ ≡</div>
+                <div className="hudLine">Equiped:</div>
+                <div className="hudLine">-Pistol (empty)</div>
+                <div className="hudLine">-Leather Jacket</div>
               </div>
               <div className="hudRight">
                 <div className="hudLine">time till AP</div>
@@ -53,15 +58,17 @@ export default function App() {
           </div>
 
           <div className="textReadout">
-            <Panel title="Text Readout" />
+            <Panel title="Uplink Terminal" />
           </div>
 
-          <div className="asciiMap">
-            <Panel title="ASCII map" />
+          <div className="panel asciiMap">
+            <div className="mapSquare">
+              <AsciiMapMock mapData={mapSeed} />
+            </div>
           </div>
 
           <div className="objects">
-            <Panel title="Interactable Objects" />
+            <Panel title="Sensors / Inventory" />
           </div>
         </div>
       </div>

@@ -152,12 +152,17 @@ html, body {
   height: 100%;
 }
 
-.asciiMap { 
-  grid-area: map; 
+/* ASCII map panel */
+.asciiMap {
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 0;
+  overflow: hidden;
+
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
 }
 
 .asciiMap .panel { 
@@ -165,6 +170,26 @@ html, body {
   height: 200px;
   flex-shrink: 0;
   justify-content: center;
+}
+
+.asciiMap pre {
+  margin: 0;
+  line-height: 1;      /* important: stable line height */
+  font-size: 14px;     /* tweak for desired density */
+  white-space: pre;
+  user-select: none;
+}
+
+.mapSquare {
+  aspect-ratio: 1 / 1;
+  width: min(220px, 100%); /* tweak to taste */
+  /* OR if you want it to fill a column: width: 100%; */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
 }
 
 /* Mobile: stack */
