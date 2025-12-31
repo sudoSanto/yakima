@@ -65,13 +65,13 @@ html, body {
 }
 
 /* Grid areas */
-.input        { grid-area: input; }
 .hud          { grid-area: hud; min-height: 0; }
+.input        { grid-area: input; }
 .textReadout  { grid-area: readout; min-height: 0; }
 .asciiMap     { grid-area: map; min-height: 0; }
 .objects      { grid-area: objects; min-height: 0; }
 
-/* Panels */
+/* Panel */
 .panel {
   border: 1px solid var(--border);
   display: flex;
@@ -95,28 +95,25 @@ html, body {
   min-height: 0;
 }
 
-/* HUD: two columns inside */
+/* HUD panel */
 .hud {
   height: 100%;
 }
+
 .hudGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
   padding: 10px;
 }
-.hud .panelTitle { display: none; }
 
 .hudLine {
   color: var(--muted);
   margin: 0 0 8px 0;
 }
 
-.input .panel { 
-  height: auto;
-  justify-content: center;
-}
 
+/* Terminal Input panel */
 .terminalInput {
   display: flex;
   align-items: center;
@@ -144,51 +141,21 @@ html, body {
   opacity: 0.5;
 }
 
-.textReadout .panel { 
-  height: 100%;
-}
-
-.objects .panel { 
-  height: 100%;
-}
-
-/* ASCII map panel */
-.asciiMap {
-  height: 100%;
-  width: 100%;
-  display: flex;
+/* ASCII Map panel */
+.asciiMap.panel { 
+  border: none;
   align-items: center;
-  justify-content: center;
   overflow: hidden;
-
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
 }
 
-.asciiMap .panel { 
-  width: 200px;
-  height: 200px;
-  flex-shrink: 0;
-  justify-content: center;
-}
-
-.asciiMap pre {
-  margin: 0;
-  line-height: 1;      /* important: stable line height */
-  font-size: 14px;     /* tweak for desired density */
-  white-space: pre;
-  user-select: none;
-}
-
 .mapSquare {
   aspect-ratio: 1 / 1;
-  width: min(220px, 100%); /* tweak to taste */
-  /* OR if you want it to fill a column: width: 100%; */
-
+  width: min(220px, 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-
   overflow: hidden;
 }
 
@@ -233,10 +200,11 @@ html, body {
   }
 
   .textReadout .panel {
-    min-height: 240px;
+    min-height: 360px;
   }
 
   .objects .panel {
-    min-height: 120px;
+    min-height: 240px;
   }
+
 }

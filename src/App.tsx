@@ -1,6 +1,8 @@
 import "./App.css";
-import { AsciiMapMock } from './AsciiMapMock';
-import mapSeed from "./maps/map.seed.json";
+import { useEffect } from "react";
+
+import { AsciiMap, mapService } from "./features/map";
+import { makeEmptyMap } from "./features/map/state/mapTypes";
 
 function Panel({ title, children }: { title: string; children?: React.ReactNode }) {
   return (
@@ -13,22 +15,29 @@ function Panel({ title, children }: { title: string; children?: React.ReactNode 
 
 function TerminalInput() {
   return (
-    <section className="panel">
-      <div className="terminalInput">
-        <span className="inputPrompt">&gt;</span>
-        <input
-          type="text"
-          className="inputField"
-          placeholder="enter command..."
-          autoComplete="off"
-          spellCheck="false"
-        />
-      </div>
-    </section>
+    <div className="terminalInput">
+      <span className="inputPrompt">&gt;</span>
+      <input
+        type="text"
+        className="inputField"
+        placeholder="enter command..."
+        autoComplete="off"
+        spellCheck="false"
+      />
+    </div>
   );
 }
 
 export default function App() {
+  useEffect(() => {
+    // Start with the default empty map (24x24)
+    mapService.setMap(makeEmptyMap());
+
+    // Optional proof it updates on the fly:
+    mapService.patchCell(3, 10, { ch: "▣", color: "#008080" }); // teal-ish
+    mapService.patchCell(14, 12, { ch: "E", color: "#ff0000" }); // enemy
+  }, []);
+
   return (
     <div className="appContainer">
       <div className="title">
@@ -37,7 +46,8 @@ export default function App() {
 
       <div className="frame">
         <div className="layout">
-          <section className="panel hud">
+
+          <section className="hud panel">
             <div className="hudGrid">
               <div className="hudLeft">
                 <div className="hudLine">Model 3R7Zy</div>
@@ -53,7 +63,7 @@ export default function App() {
             </div>
           </section>
 
-          <div className="input">
+          <div className="input panel">
             <TerminalInput />
           </div>
 
@@ -61,15 +71,18 @@ export default function App() {
             <Panel title="Uplink Terminal" />
           </div>
 
-          <div className="panel asciiMap">
+          <div className="asciiMap panel">
             <div className="mapSquare">
-              <AsciiMapMock mapData={mapSeed} />
+              <AsciiMap
+                onCellClick={(x, y) => mapService.patchCell(x, y, { ch: "#", color: "rgba(230,225,216,0.85)" })}
+              />
             </div>
           </div>
 
           <div className="objects">
             <Panel title="Sensors / Inventory" />
           </div>
+
         </div>
       </div>
     </div>
